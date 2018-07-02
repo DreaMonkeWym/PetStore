@@ -1,0 +1,71 @@
+建表：
+账户表account
+create table if not exists account(
+	username varchar(80) not null,
+	password varchar (60) default null,
+	email varchar (80) not null,
+	xm varchar (80) not null,
+	address varchar (80) default null,
+	primary key (username)
+)
+宠物种类表category：
+create table if not exists category(
+	catid varchar(10) not null,宠物种类id
+	name varchar(80) default null,宠物种类名称
+	descn varchar (255) default null,宠物种类说明
+	primary key(catid)
+)
+喜好表profile： 与账户表和宠物种类表分别一对一
+create table if not exists profile(
+	username varchar (80) not null, 用户名
+	lang varchar (80) not null, 你的母语
+	catid varchar (30) default null,  喜爱的宠物
+	primary key(username),
+	constraint fk_1_u foreign key(username) references account (username),
+	constraint fk_2_c foreign key(catid) references category (catid)
+)
+宠物产品表：
+create table if not exists product(
+	productid varchar (10) not null, 产品ID
+	catid varchar(10) not null, 宠物种类
+	name varchar (80) default null, 产品名称
+	descn varchar (255) default null,产品描述
+	pic varchar (50) default null,产品图片
+	primary key(productid),
+	constraint fk_3_c foreign key(catid) references category (catid)
+)
+项目表：
+create table if not exists item(
+	itemid varchar (10) not null,项目id
+	productid varchar (10) not null, 产品id
+	listprice decimal(10,2) default null, 单价
+	unitcost decimal(10,2) default null, 
+	status varchar(2) default null, 
+	attr1 varchar (80) default null, 项目描述
+	attr2 varchar (80) default null,
+	attr3 varchar (80) default null,
+	attr4 varchar (80) default null,
+	attr5 varchar (80) default null,
+	primary key(itemid),
+	constraint fk_4_p foreign key(productid) references product (productid)
+)
+订单：create table if not exists orders(
+  `username` varchar(50) NOT NULL COMMENT '用户名',
+  `orderid` int(11) NOT NULL DEFAULT '0' COMMENT '订单序号',
+  `orderdate` date DEFAULT NULL COMMENT '订单日期',
+  `totalprice` decimal(10,2) DEFAULT '0.00' COMMENT '总价格',
+	PRIMARY KEY (`orderid`,`username`),
+	CONSTRAINT fk_6_u FOREIGN KEY (`username`) REFERENCES `account` (`username`)
+)
+
+购物车：
+create table if not exists cart(
+   username varchar(50) NOT NULL DEFAULT '0',用户名
+   orderid int(11) NOT NULL DEFAULT '0',订单编号
+   itemid  varchar(10) NOT NULL,宠物项目编号
+   quantity  int(11) NOT NULL,数量
+  PRIMARY KEY (orderid,itemid,username),
+  CONSTRAINT `FK888` FOREIGN KEY (username) REFERENCES  orders (username),
+  CONSTRAINT `FK_FK_Reference_51` FOREIGN KEY (itemid) REFERENCES item (itemid),
+  CONSTRAINT `FK_Relationship_71` FOREIGN KEY (orderid) REFERENCES orders (orderid)
+)

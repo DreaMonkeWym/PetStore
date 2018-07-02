@@ -1,0 +1,130 @@
+软件架构关系
+RESTful
+
+Spring-IOC,AOP--Controller：控制层
+Mybatis- mapper model---Model:业务层,
+SpringMVC---- View：视图层
+
+后端提供API即可
+JSON
+
+HTML CSS JS--jquery,react,angular,vue
+
+Gradle
+数据库关系
+account：账户 OTO
+    username：pk 用户名
+    password：   密码
+    email：邮箱
+    xm:真实姓名
+    address：地址
+profile：喜好
+    username pk 用户名
+    lang:你的母语
+    catid：喜爱的宠物
+category:宠物种类表
+     catid：宠物种类id pk
+     name：宠物种类名称
+     descn:宠物种类说明
+product:宠物产品表
+     productid:产品ID PK
+     catid：宠物种类，fk category
+     name：产品名称
+     descn：产品描述
+     pic：产品图片
+item：项目表
+     itemid：项目ID PK
+     productid：产品id，fk product
+     listprice:单价
+     attr1：项目描述
+cart:购物车
+  username:用户名 pk
+  orderid :订单编号 pk fk
+  itemid：宠物项目编号 fk
+  quantity:数量
+orders: 订单表
+  username：用户名 pk
+  orderid：订单编号 pk
+  orderdate：订单日期
+  totalprice:总价格
+
+
+drop procedure if exists addCart7 ;
+delimiter //
+create procedure addCart7(
+  in in_username varchar(10),
+  in in_itemid varchar(10),
+  in in_quantity int(2)
+)
+begin
+	#取得当前用户下的订单编号和日期，如果日期为null，代表它还没有提交
+	#可以继续购物。
+	set @id:=0;
+	set @odate:='';
+	set @oqu:=0;#老数量
+	select  orderid ,orderdate into @id,@odate
+	from orders
+	where username=in_username
+	order by orderid desc
+	limit 1;
+
+	if @odate is null then #可以继续购物
+		#但是还需要判断是否是已经买了同类产品
+
+		select quantity into @oqu
+		from cart
+		where username=in_username and
+			orderid=@id and
+			itemid=in_itemid;
+
+			if @oqu='' then #没有同类
+				insert into cart(username,orderid,itemid,quantity)
+				values(in_username,@id,in_itemid,in_quantity);
+			else#有同类，修改
+
+
+
+				set @nqu=in_quantity+@oqu;#新数量
+
+				call updateCart7(in_username,in_itemid,@nqu,@id);
+
+			end if;
+
+	end if;
+
+
+
+end //
+delimiter ;
+
+
+
+
+drop procedure if exists updateCart7 ;
+delimiter //
+create procedure updateCart7(
+  in in_username varchar(10),
+  in in_itemid varchar(10),
+  in in_quantity int(2),
+  in in_orderid int
+)
+begin
+
+
+
+
+	update cart set quantity=@nqu
+	where username=in_username and
+		itemid=in_itemid and
+		orderid=in_orderid;
+
+
+
+
+
+end //
+delimiter ;
+
+
+
+

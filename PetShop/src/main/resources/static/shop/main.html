@@ -1,0 +1,171 @@
+<html>
+<head>
+    <TITLE></TITLE>
+    <META content="text/html; charset=utf-8" http-equiv=Content-Type>
+    <script src="../js/jquery-3.1.1.min.js">
+
+
+    </script>
+    <script src="../js/jquery.cookie-1.4.1.min.js">
+
+
+    </script>
+    <script src="../js/top.js">
+
+
+    </script>
+    <script>
+        $(function(){
+            var username=$.cookie("pusername");
+
+            if(username==undefined){//没登录，或者登录时间太长了
+                $("#lmsg").html("欢迎游客！");
+            }else{
+                $("#lmsg").html("欢迎 "+username+"！");
+            }
+        });
+
+
+    </script>
+</head>
+<body>
+<div>
+   <div id="top">
+
+
+   </div>
+
+
+    <table border="0" cellspacing="2" cellpadding="0" width="100%">
+        <tr>
+            <td valign="top" width="100%">
+
+                <table align="left" border="0" cellspacing="0" width="80%">
+                    <tbody>
+                    <tr>
+                        <td valign="top">
+
+                            <!-- SIDEBAR -->
+
+                            <table bgcolor="#5A8C29" border="0" cellspacing="2"
+                                   cellpadding="0" width="100%">
+                                <tr>
+                                    <td>
+                                        <table bgcolor="#FFFF88" border="0" cellspacing="0"
+                                               cellpadding="5" width="200">
+                                            <tbody>
+                                            <tr>
+                                                <td>
+                                                    <b><i><font size="2" color="BLACK">
+                                                        <span id="lmsg">
+
+
+                                                        </span>
+
+
+                                                    </font></i></b>
+                                                    &nbsp;
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <a href="product.html?cate=FISH">
+                                                        <img
+                                                            border="0" src="../images/fish_icon.gif"/>
+                                                    </a>
+
+                                                    <br>
+                                                    <font size="2"><i></i>
+                                                    </font>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <a
+                                                            href="product.html?cate=DOGS"><img
+                                                            border="0" src="../images/dogs_icon.gif"/>
+                                                    </a>
+                                                    <br>
+                                                    <font size="2"><i></i>
+                                                    </font>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <a
+                                                            href="product.html?cate=CATS"><img
+                                                            border="0" src="../images/cats_icon.gif"/>
+                                                    </a>
+                                                    <br>
+                                                    <font size="2"><i></i>
+                                                    </font>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <a
+                                                            href="product.html?cate=REPTILES"><img
+                                                            border="0" src="../images/reptiles_icon.gif"/>
+                                                    </a>
+                                                    <br>
+                                                    <font size="2"><i></i>
+                                                    </font>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <a
+                                                            href="product.html?cate=BIRDS"><img
+                                                            border="0" src="../images/birds_icon.gif"/>
+                                                    </a>
+                                                    <br>
+                                                    <font size="2"><i></i>
+                                                    </font>
+                                                </td>
+                                            </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </td>
+                        <td align="center" bgcolor="white" height="300" width="100%">
+
+                            <!-- MAIN IMAGE -->
+
+                            <map name="estoremap">
+                                <area alt="Birds" coords="72,2,280,250"
+                                      href="" shape="RECT"/>
+                                <area alt="Fish" coords="2,180,72,250"
+                                      href="product.html?cate=FISH" shape="RECT"/>
+                                <area alt="Dogs" coords="60,250,130,320"
+                                      href="product.html?cate=DOGS" shape="RECT"/>
+                                <area alt="Reptiles" coords="140,270,210,340"
+                                      href="product.html?cate=REPTILES" shape="RECT"/>
+                                <area alt="Cats" coords="225,240,295,310"
+                                      href="product.html?cate=CATS" shape="RECT"/>
+                                <area alt="Birds" coords="280,180,350,250"
+                                      href="product.html?cate=BIRDS" shape="RECT"/>
+                            </map>
+                            <img border="0" height="355" src="../images/splash.gif"
+                                 align="center" usemap="#estoremap" width="350"/>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+
+    </table>
+
+    <br>
+
+    <div  id="bottom"></div>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,131 @@
+<html>
+<head>
+	<TITLE></TITLE>
+	<META content="text/html; charset=utf-8" http-equiv=Content-Type>
+	<script src="../js/jquery-3.1.1.min.js">
+
+
+	</script>
+	<script src="../js/top.js">
+
+
+	</script>
+
+	<script src="../js/pet.js">
+
+
+	</script>
+	<script src="../js/jquery.cookie-1.4.1.min.js">
+
+
+	</script>
+</head>
+<body>
+<div id="top">
+
+
+</div>
+
+<table align="left" bgcolor="#008800" border="0" cellspacing="2"
+	cellpadding="2">
+	<tr>
+		<td bgcolor="#FFFF88">
+			<a href="">
+			详细
+			</a>
+		</td>
+	</tr>
+</table>
+
+<p>
+<table align="center" bgcolor="#008800" cellspacing="2" cellpadding="3"
+		border="0" width="60%">
+		<tr bgcolor="#FFFF88">
+			<td bgcolor="#FFFFFF">
+				<img id="photo">
+
+			</td>
+		</tr>
+		<tr bgcolor="#FFFF88">
+			<td width="100%" bgcolor="#cccccc">
+				<span id="itemid"></span>
+			</td>
+		</tr>
+		<tr bgcolor="#FFFF88">
+			<td>
+				<b><font size="4">
+					<span id="descn"></span>
+				
+				</font>
+				</b>
+			</td>
+		</tr>
+		<tr bgcolor="#FFFF88">
+			<td>
+				<font size="3"><i>
+
+					<span id="price"></span>
+
+				</i>
+				</font>
+			</td>
+		</tr>
+		<!--<tr bgcolor="#FFFF88">-->
+			<!--<td>-->
+				<!---->
+
+			<!--</td>-->
+		<!--</tr>-->
+		<!--<tr bgcolor="#FFFF88">-->
+			<!--<td>-->
+				<!---->
+			<!--</td>-->
+		<!--</tr>-->
+
+		<tr bgcolor="#FFFF88">
+			<td>
+				<input type="image" onclick="add()" src="../images/button_add_to_cart.gif">
+
+			</td>
+		</tr>
+	</table>
+		<script type="text/javascript">
+
+			function add(){
+			    //是否登录，未登陆，跳转login.html
+
+                var username=$.cookie("pusername");
+               	if(username==undefined){
+               	    window.location="login.html";
+               	    return;
+				}
+                var CART_ADD_URL="http://localhost:8080/cart/add";
+                var itemid= $("#itemid").html();
+
+                var json={
+                    itemid:itemid,
+					username:username,
+					quantity:1
+
+				};
+			  	$.ajax({
+			  	    url:CART_ADD_URL,
+					data:JSON.stringify(json),
+					contentType:"application/json",
+					type:"POST",
+					dataType:"text",//String
+					statusCode:{
+			  	        200:function(data){
+
+							window.location="cart.html?oid="+data;
+						}
+					}
+
+
+				});
+			}
+
+
+		</script>
+</body>
+</html>
